@@ -1,0 +1,18 @@
+# environment / rahasia
+.env
+.env.local
+
+# berkas hasil ekspor / cadangan database
+*.sqlite
+*.db
+*.dump
+*.bak
+
+# OS dan editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# log
+*.log
