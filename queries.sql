@@ -139,7 +139,7 @@ DELETE FROM admins WHERE id = ?;
 -- BOOKING ROMBONGAN  (GET /api/bookings, PATCH /api/bookings/:id/status)
 -- ============================================================================
 SELECT id, institution, contact_name AS contact, phone, visit_date AS date, participant_count AS participants,
-       notes, status, created_at
+       email, purpose, notes, status, created_at
 FROM bookings
 ORDER BY created_at DESC;
 

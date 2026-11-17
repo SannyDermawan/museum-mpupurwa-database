@@ -95,6 +95,8 @@ CREATE TABLE bookings (
   phone             VARCHAR(20)  NOT NULL,
   visit_date        DATE         NOT NULL,                   -- tanggal kunjungan
   participant_count INT UNSIGNED NOT NULL,
+  email             VARCHAR(150) NULL,                       -- email penanggung jawab (opsional)
+  purpose           VARCHAR(200) NULL,                       -- tujuan kunjungan (opsional)
   notes             TEXT         NULL,
   status            ENUM('pending', 'confirmed', 'completed', 'rejected') NOT NULL DEFAULT 'pending',
   created_at        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,   -- waktu pengajuan (dasar filter 24 jam / 7 hari / 30 hari)
