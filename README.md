@@ -137,3 +137,19 @@ DB_NAME=museum_mpupurwa
 ```
 
 lalu mengganti isi fungsi di `backend/src/data/*` dengan query dari `queries.sql`. Bentuk respons API tidak perlu berubah.
+
+## Memakai database di cloud (untuk deploy)
+
+Saat aplikasi dideploy (frontend dan backend di Vercel), database harus bisa diakses dari internet, jadi pakai MySQL cloud (mis. TiDB Cloud atau Aiven; cek paket gratisnya) dan bukan MySQL di laptop.
+
+- **Sumber kebenaran skema adalah migrasi Prisma** di repo `museum-mpupurwa-backend` (`prisma/migrations`). Untuk database cloud jalankan dari folder backend dengan `DATABASE_URL` cloud:
+
+  ```bash
+  npx prisma migrate deploy
+  npx prisma db seed
+  ```
+
+  `migrate deploy` hanya menerapkan migrasi yang sudah ada dan aman untuk produksi. Jangan pakai `migrate dev` di database cloud.
+- `schema.sql` di repositori ini adalah padanan SQL murni untuk database development lokal. **Jangan dijalankan di database cloud**: berkasnya memakai `DROP TABLE`.
+- Penyedia cloud biasanya mewajibkan TLS. Ikuti parameter koneksi dari penyedia di `DATABASE_URL` (mis. `?sslaccept=strict`). Tambahkan `connection_limit=5` karena backend berjalan sebagai function serverless yang membuka banyak koneksi.
+- Ganti kata sandi akun demo (`admin123`) sebelum dipakai sungguhan, dan jangan pernah men-commit `DATABASE_URL`.
