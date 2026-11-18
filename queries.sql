@@ -127,19 +127,27 @@ FROM admins
 WHERE CONCAT_WS(' ', name, email, role) LIKE CONCAT('%', ?, '%')
 ORDER BY id;
 
--- Tambah admin: password_hash dihasilkan backend dari sandi sementara (bcrypt).
--- Email yang sudah dipakai akan ditolak oleh UNIQUE (error 1062 -> balas 409).
+-- Id admin berikutnya (ADM-004, dst.): backend mengambil angka tertinggi lalu menambah 1.
+SELECT MAX(CAST(SUBSTRING(id, 5) AS UNSIGNED)) AS last_number FROM admins;
+
+-- Tambah admin: password_hash dihasilkan backend dari sandi sementara (bcrypt, cost 10).
+-- Email yang sudah dipakai akan ditolak oleh UNIQUE (error 1062 -> balas 409 "Email sudah terdaftar.").
+-- passwordHash tidak pernah dikembalikan di respons API.
 INSERT INTO admins (id, name, email, password_hash, role, status) VALUES (?, ?, ?, ?, ?, 'active');
 
 UPDATE admins SET name = ?, role = ?, status = ? WHERE id = ?;
 
 DELETE FROM admins WHERE id = ?;
 
+-- Pengaman: Super Admin terakhir tidak boleh dinonaktifkan atau dihapus.
+-- Cek dulu jumlah Super Admin aktif; kalau hasilnya 1 dan itu akun yang diubah, backend membalas 400.
+SELECT COUNT(*) AS active_super_admins FROM admins WHERE role = 'super_admin' AND status = 'active';
+
 -- ============================================================================
 -- BOOKING ROMBONGAN  (GET /api/bookings, PATCH /api/bookings/:id/status)
 -- ============================================================================
 SELECT id, institution, contact_name AS contact, phone, visit_date AS date, participant_count AS participants,
-       notes, status, created_at
+       email, purpose, notes, status, created_at
 FROM bookings
 ORDER BY created_at DESC;
 
@@ -155,12 +163,12 @@ FROM v_collections
 WHERE CONCAT_WS(' ', name, era, material) LIKE CONCAT('%', ?, '%')
 ORDER BY id;
 
-INSERT INTO collections (name, era, period, origin, material, dimensions, meaning, photo_path, video_url, pdf_path)
+INSERT INTO collections (name, era, period, origin, material, dimensions, meaning, photo_url, video_url, pdf_url)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);   -- simpan NULL (bukan teks kosong) untuk media yang belum ada
 
 UPDATE collections
 SET name = ?, era = ?, period = ?, origin = ?, material = ?, dimensions = ?, meaning = ?,
-    photo_path = ?, video_url = ?, pdf_path = ?
+    photo_url = ?, video_url = ?, pdf_url = ?
 WHERE id = ?;
 
 DELETE FROM collections WHERE id = ?;

@@ -71,10 +71,10 @@ INSERT INTO bookings (id, institution, contact_name, phone, visit_date, particip
 -- dibiarkan NULL. Alamat video dan berkas PDF di bawah hanyalah PENGISI
 -- (placeholder) agar status "Lengkap / Belum ada ..." sama dengan tampilan sekarang.
 -- ----------------------------------------------------------------------------
-INSERT INTO collections (name, era, material, video_url, pdf_path) VALUES
-  ('Arca Ganesya Tikus',  'Singosari', 'Batu andesit', 'https://example.com/video/arca-ganesya-tikus', '/uploads/pdf/arca-ganesya-tikus.pdf'),
-  ('Arca Brahma',         'Kanjuruhan','Batu andesit', 'https://example.com/video/arca-brahma',        '/uploads/pdf/arca-brahma.pdf'),
-  ('Siwa Catur Muka',     'Tumapel',   'Batu andesit', NULL,                                          '/uploads/pdf/siwa-catur-muka.pdf'),
-  ('Makara Gapura',       'Singosari', 'Batu andesit', 'https://example.com/video/makara-gapura',     '/uploads/pdf/makara-gapura.pdf'),
+INSERT INTO collections (name, era, material, video_url, pdf_url) VALUES
+  ('Arca Ganesya Tikus',  'Singosari', 'Batu andesit', 'https://example.com/video/arca-ganesya-tikus', 'https://example.public.blob.vercel-storage.com/koleksi/dokumen/arca-ganesya-tikus.pdf'),
+  ('Arca Brahma',         'Kanjuruhan','Batu andesit', 'https://example.com/video/arca-brahma',        'https://example.public.blob.vercel-storage.com/koleksi/dokumen/arca-brahma.pdf'),
+  ('Siwa Catur Muka',     'Tumapel',   'Batu andesit', NULL,                                          'https://example.public.blob.vercel-storage.com/koleksi/dokumen/siwa-catur-muka.pdf'),
+  ('Makara Gapura',       'Singosari', 'Batu andesit', 'https://example.com/video/makara-gapura',     'https://example.public.blob.vercel-storage.com/koleksi/dokumen/makara-gapura.pdf'),
   ('Prasasti Kanjuruhan', 'Prasasti',  'Batu andesit', 'https://example.com/video/prasasti-kanjuruhan', NULL),
   ('Arca Nandi',          'Tumapel',   'Batu andesit', NULL,                                          NULL);

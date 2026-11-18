@@ -8,7 +8,7 @@ Skema dan data awal database untuk **Admin Web Museum Mpu Purwa**. Repositori in
 | `museum-mpupurwa-backend` | Express.js + TypeScript (API) |
 | `museum-mpupurwa-database` | **repositori ini**: skema, data awal, dan query |
 
-> Saat ini (UTS) backend masih memakai data dummy di memori. Repositori ini menyiapkan database yang akan menggantikannya, dengan bentuk data yang sama persis dengan yang dipakai API, sehingga tampilan admin web tidak berubah.
+> Backend sekarang membaca data dari database lewat **Prisma**. Skema yang dipakai backend ada di `prisma/schema.prisma` pada repo `museum-mpupurwa-backend` (perubahan skema lewat folder `prisma/migrations`). Repositori ini menyimpan padanan SQL murninya (`schema.sql`, `seed.sql`, `queries.sql`) dan isinya harus selalu sama dengan skema Prisma di backend. File foto dan PDF koleksi disimpan di **Vercel Blob**; database hanya menyimpan link-nya (`photo_url`, `pdf_url`).
 
 ## Teknologi
 
@@ -88,7 +88,7 @@ erDiagram
     varchar name
     varchar era
     varchar video_url
-    varchar pdf_path
+    varchar pdf_url
   }
 ```
 
@@ -113,7 +113,7 @@ Notifikasi di lonceng navbar tidak punya tabel: dibentuk dari booking `pending` 
 - **`visits` menyalin data pengunjung** (nama, domisili, institusi, jenjang) saat check-in. Riwayat tidak berubah kalau akunnya diedit atau dihapus, dan pengunjung tanpa akun tetap bisa tercatat.
 - **Status booking** memakai empat nilai: `pending`, `confirmed`, `completed`, `rejected`. Nilai lain ditolak oleh database.
 - **Kata sandi** disimpan sebagai hash bcrypt di `password_hash`, bukan teks asli.
-- **Label media koleksi** tidak disimpan. Dihitung dari ada atau tidaknya `video_url` dan `pdf_path` (keduanya `NULL` kalau belum diunggah).
+- **Label media koleksi** tidak disimpan. Dihitung dari ada atau tidaknya `video_url` dan `pdf_url` (keduanya `NULL` kalau belum diunggah).
 
 ## Catatan tentang data seed
 
