@@ -8,7 +8,7 @@ Skema dan data awal database untuk **Admin Web Museum Mpu Purwa**. Repositori in
 | `museum-mpupurwa-backend` | Express.js + TypeScript (API) |
 | `museum-mpupurwa-database` | **repositori ini**: skema, data awal, dan query |
 
-> Saat ini (UTS) backend masih memakai data dummy di memori. Repositori ini menyiapkan database yang akan menggantikannya, dengan bentuk data yang sama persis dengan yang dipakai API, sehingga tampilan admin web tidak berubah.
+> Backend sekarang membaca data dari database lewat **Prisma**. Skema yang dipakai backend ada di `prisma/schema.prisma` pada repo `museum-mpupurwa-backend` (perubahan skema lewat folder `prisma/migrations`). Repositori ini menyimpan padanan SQL murninya (`schema.sql`, `seed.sql`, `queries.sql`) dan isinya harus selalu sama dengan skema Prisma di backend. File foto dan PDF koleksi disimpan di **Vercel Blob**; database hanya menyimpan link-nya (`photo_url`, `pdf_url`).
 
 ## Teknologi
 
