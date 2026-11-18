@@ -155,12 +155,12 @@ FROM v_collections
 WHERE CONCAT_WS(' ', name, era, material) LIKE CONCAT('%', ?, '%')
 ORDER BY id;
 
-INSERT INTO collections (name, era, period, origin, material, dimensions, meaning, photo_path, video_url, pdf_path)
+INSERT INTO collections (name, era, period, origin, material, dimensions, meaning, photo_url, video_url, pdf_url)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);   -- simpan NULL (bukan teks kosong) untuk media yang belum ada
 
 UPDATE collections
 SET name = ?, era = ?, period = ?, origin = ?, material = ?, dimensions = ?, meaning = ?,
-    photo_path = ?, video_url = ?, pdf_path = ?
+    photo_url = ?, video_url = ?, pdf_url = ?
 WHERE id = ?;
 
 DELETE FROM collections WHERE id = ?;

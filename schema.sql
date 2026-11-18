@@ -123,9 +123,9 @@ CREATE TABLE collections (
   material    VARCHAR(100) NULL,                             -- mis. "Batu andesit"
   dimensions  VARCHAR(120) NULL,                             -- mis. "T 90 cm, L 60 cm"
   meaning     TEXT         NULL,                             -- sejarah, fungsi, dan makna (tampil di aplikasi)
-  photo_path  VARCHAR(255) NULL,
+  photo_url   VARCHAR(500) NULL,                         -- link file di Vercel Blob
   video_url   VARCHAR(255) NULL,
-  pdf_path    VARCHAR(255) NULL,
+  pdf_url     VARCHAR(500) NULL,                         -- link file di Vercel Blob
   created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
@@ -138,8 +138,8 @@ CREATE VIEW v_collections AS
 SELECT
   c.*,
   CASE
-    WHEN c.video_url IS NOT NULL AND c.pdf_path IS NOT NULL THEN 'Lengkap'
-    WHEN c.video_url IS NULL     AND c.pdf_path IS NULL     THEN 'Belum ada video dan PDF'
+    WHEN c.video_url IS NOT NULL AND c.pdf_url IS NOT NULL THEN 'Lengkap'
+    WHEN c.video_url IS NULL     AND c.pdf_url IS NULL     THEN 'Belum ada video dan PDF'
     WHEN c.video_url IS NULL                                THEN 'Belum ada video'
     ELSE 'Belum ada PDF'
   END AS status_media
