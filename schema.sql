@@ -16,6 +16,7 @@ USE museum_mpupurwa;
 
 -- Urutan DROP: tabel yang punya foreign key dihapus lebih dulu.
 DROP VIEW  IF EXISTS v_collections;
+DROP TABLE IF EXISTS visitor_otps;
 DROP TABLE IF EXISTS visits;
 DROP TABLE IF EXISTS visitor_accounts;
 DROP TABLE IF EXISTS bookings;
@@ -55,8 +56,27 @@ CREATE TABLE visitor_accounts (
   registered_at   DATE         NOT NULL,
   created_at      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  email_verified_at DATETIME   NULL,                         -- diisi saat OTP email benar; NULL = belum terverifikasi
   PRIMARY KEY (id),
   UNIQUE (email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------------------------------------------------------
+-- visitor_otps: kode OTP login/daftar pengunjung aplikasi mobile (dikirim lewat email).
+-- Yang disimpan hanya hash HMAC-nya, bukan kodenya. Kode berlaku 10 menit, sekali pakai, maksimal 5 tebakan
+-- salah (kolom attempts), dan hanya kode terbaru per akun yang berlaku (kode lama dihapus saat kode baru dibuat).
+-- Akun dihapus -> OTP-nya ikut terhapus.
+-- ----------------------------------------------------------------------------
+CREATE TABLE visitor_otps (
+  id         INT          NOT NULL AUTO_INCREMENT,
+  account_id VARCHAR(10)  NOT NULL,
+  code_hash  VARCHAR(64)  NOT NULL,
+  expires_at DATETIME     NOT NULL,
+  attempts   INT          NOT NULL DEFAULT 0,
+  created_at DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  INDEX idx_visitor_otps_account_created (account_id, created_at),
+  CONSTRAINT fk_visitor_otps_account FOREIGN KEY (account_id) REFERENCES visitor_accounts (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------------------------------------------------------
