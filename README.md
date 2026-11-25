@@ -100,6 +100,7 @@ Hanya `visits` yang punya foreign key (ke `visitor_accounts`, boleh kosong). Tab
 |---|---|---|
 | `admins` | Akun pengelola museum | Login, Manajemen Akun › Admin |
 | `visitor_accounts` | Akun pengunjung dari aplikasi mobile | Manajemen Akun › Pengunjung, kartu "Total akun" |
+| `visitor_otps` | Kode OTP (hash) login pengunjung lewat email | API publik `/api/public/auth/*` |
 | `visits` | Satu baris per check-in | Pengunjung Hari Ini, grafik Statistik Pengunjung |
 | `bookings` | Pengajuan kunjungan rombongan | Booking Rombongan, kartu "Booking menunggu", diagram Status Booking |
 | `collections` | Arca dan prasasti | Manajemen Koleksi, kartu "Koleksi terdaftar" |

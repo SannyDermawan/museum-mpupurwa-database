@@ -17,7 +17,7 @@ USE museum_mpupurwa;
 --   admin@mpupurwa.test / admin123  (Super Admin)
 -- ----------------------------------------------------------------------------
 INSERT INTO admins (id, name, email, password_hash, role, status, last_login_at) VALUES
-  ('ADM-001', 'Rizal Pradana',   'admin@mpupurwa.test', '$2b$10$TP4gzYxJeAyDaqwgJ724cORAIx2wxakPAVPf5W4eXm7biBTexPqay', 'super_admin', 'active',   TIMESTAMP(CURDATE(), '08:02:00')),
+  ('ADM-001', 'Sanny Dermawan',  'admin@mpupurwa.test', '$2b$10$TP4gzYxJeAyDaqwgJ724cORAIx2wxakPAVPf5W4eXm7biBTexPqay', 'super_admin', 'active',   TIMESTAMP(CURDATE(), '08:02:00')),
   ('ADM-002', 'Dewi Anggraini',  'dewi@mpupurwa.id',    '$2b$10$TP4gzYxJeAyDaqwgJ724cORAIx2wxakPAVPf5W4eXm7biBTexPqay', 'admin',       'active',   TIMESTAMP(CURDATE() - INTERVAL 1 DAY, '15:40:00')),
   ('ADM-003', 'Hadi Kurniawan',  'hadi@mpupurwa.id',    '$2b$10$TP4gzYxJeAyDaqwgJ724cORAIx2wxakPAVPf5W4eXm7biBTexPqay', 'admin',       'inactive', '2026-09-12 10:15:00');
 
@@ -72,9 +72,9 @@ INSERT INTO bookings (id, institution, contact_name, phone, visit_date, particip
 -- (placeholder) agar status "Lengkap / Belum ada ..." sama dengan tampilan sekarang.
 -- ----------------------------------------------------------------------------
 INSERT INTO collections (name, era, material, video_url, pdf_url) VALUES
-  ('Arca Ganesya Tikus',  'Singosari', 'Batu andesit', 'https://example.com/video/arca-ganesya-tikus', 'https://example.public.blob.vercel-storage.com/koleksi/dokumen/arca-ganesya-tikus.pdf'),
-  ('Arca Brahma',         'Kanjuruhan','Batu andesit', 'https://example.com/video/arca-brahma',        'https://example.public.blob.vercel-storage.com/koleksi/dokumen/arca-brahma.pdf'),
+  ('Arca Ganesya Tikus',  'Singosari', 'Batu andesit', 'https://youtu.be/contoh00001', 'https://example.public.blob.vercel-storage.com/koleksi/dokumen/arca-ganesya-tikus.pdf'),
+  ('Arca Brahma',         'Kanjuruhan','Batu andesit', 'https://youtu.be/contoh00001',        'https://example.public.blob.vercel-storage.com/koleksi/dokumen/arca-brahma.pdf'),
   ('Siwa Catur Muka',     'Tumapel',   'Batu andesit', NULL,                                          'https://example.public.blob.vercel-storage.com/koleksi/dokumen/siwa-catur-muka.pdf'),
-  ('Makara Gapura',       'Singosari', 'Batu andesit', 'https://example.com/video/makara-gapura',     'https://example.public.blob.vercel-storage.com/koleksi/dokumen/makara-gapura.pdf'),
-  ('Prasasti Kanjuruhan', 'Prasasti',  'Batu andesit', 'https://example.com/video/prasasti-kanjuruhan', NULL),
+  ('Makara Gapura',       'Singosari', 'Batu andesit', 'https://youtu.be/contoh00001',     'https://example.public.blob.vercel-storage.com/koleksi/dokumen/makara-gapura.pdf'),
+  ('Prasasti Kanjuruhan', 'Prasasti',  'Batu andesit', 'https://youtu.be/contoh00001', NULL),
   ('Arca Nandi',          'Tumapel',   'Batu andesit', NULL,                                          NULL);
